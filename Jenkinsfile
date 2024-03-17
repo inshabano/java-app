@@ -1,3 +1,4 @@
+def gv
 pipeline{
   agent any
   environment{
@@ -17,21 +18,25 @@ pipeline{
   booleanParam(name: 'Execute', defaultValue: true, description: '')
   }
   stages{
+     stage("init"){
+       steps{
+         script{
+          gv = load "script.groovy"
+         }
+       }
+     }
      stage("build"){
         steps{
-           echo "building stage"
-           echo "Building version ${VERSION}"
-           sh 'mvn clean package'
+           script{
+              gv.build()
+           }
            }
      }
      stage("build image"){
         steps{
-          echo 'Building docker image'
-          withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'USER', passwordVariable: 'PSWD' )]){
-            sh 'docker build -t inshabano/demo-app:javamaven-2.0 .'
-            sh "echo $PSWD | docker login -u $USER --password-stdin"
-            sh 'docker push inshabano/demo-app:javamaven-2.0'
-          }
+          script{
+            gv.buildImage()
+        }
         }
      }
      stage("test"){
@@ -48,8 +53,9 @@ pipeline{
      }
      stage("deploy"){
         steps{
-        echo "deploying stage"
-        sh 'mvn deploy'
+          script{
+             gv.deploy()
+          }
 //         withCredentials([
 //          UsernamePassword(credentials: 'sever-credentials', usernameVariable: USER, passwordVariable: PASSWORD)
 //         ]){
