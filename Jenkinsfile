@@ -3,10 +3,9 @@ pipeline{
   environment{
      VERSION = '1.0'
 //      SERVER_CREDENTIALS = credentials('server-credentials')
-     environment {
              MAVEN_HOME = tool name: 'maven-3', type: 'maven'
              PATH = "${env.MAVEN_HOME}/bin:${env.PATH}"
-         }
+
   }
 //   tool {
 //     maven 'maven-3'
