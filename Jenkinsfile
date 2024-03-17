@@ -67,5 +67,5 @@ pipeline{
               // Send notification or perform additional actions on failure
               echo 'Build failed!'
           }
-
+ }
 }
