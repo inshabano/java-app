@@ -35,10 +35,10 @@ pipeline{
      stage("deploy"){
         steps{
         echo "deploying stage"
-        withCredentials([
-         UsernamePassword(credentials: 'sever-credentials', usernameVariable: USER, passwordVariable: PASSWORD)
-        ]){
-        }
+//         withCredentials([
+//          UsernamePassword(credentials: 'sever-credentials', usernameVariable: USER, passwordVariable: PASSWORD)
+//         ]){
+//         }
         }
      }
   }
