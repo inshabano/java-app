@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 def gv
 pipeline{
   agent any
@@ -33,6 +34,11 @@ pipeline{
            }
      }
      stage("build image"){
+     when{
+            expression {
+              BRANCH_NAME == 'features'
+            }
+          }
         steps{
           script{
             gv.buildImage()
@@ -74,3 +80,5 @@ pipeline{
           }
  }
 }
+
+//checking for webhook trigger
