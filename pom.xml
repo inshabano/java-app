@@ -6,8 +6,11 @@
 
     <groupId>com.example</groupId>
     <artifactId>java-maven-app</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
-
+    <version>1.1.2</version>
+<!--     dynamically versioning using the command- mvn build-helper:parse-version versions:set \
+          -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
+          (in case of versioning minor and major - parsedVersion.nextMajorVersion  & parsedVersion.nextMinorVersion
+ -->
     <build>
         <plugins>
             <plugin>
