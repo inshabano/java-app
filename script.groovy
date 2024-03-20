@@ -14,4 +14,13 @@ def deploy() {
     echo "deploying stage"
     sh 'mvn deploy'
 }
+def commit() {
+    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASSWD', usernameVariable: 'USER' )]){
+        sh "git remote ser-url origin https://${USER}:${PASSWD}@github.com/inshabano/java-app.git"
+        sh 'git add .'
+        sh 'git commit -m "update jenkinsfile"'
+        sh 'git push origin HEAD:jenkins-jobs'
+    }
+
+}
 return this
