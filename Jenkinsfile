@@ -26,6 +26,18 @@ pipeline{
          }
        }
      }
+     stage("increment version"){
+        steps{
+           script{
+            echo "Increment version"
+            sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit'
+//          (in case of versioning minor and major - parsedVersion.nextMajorVersion  & parsedVersion.nextMinorVersion
+            def match = readFile('pom.xml') =~ '<version>(.+)</version>'
+                def version = match[0][1]
+                env.IMAGE_VERSION = "$version-$BUILD_NUMBER"
+           }
+     }
+     }
      stage("build"){
         steps{
            script{

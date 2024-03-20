@@ -4,10 +4,10 @@ def build() {
 }
 def buildimage() {
     echo 'Building docker image'
-    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PSWD', usernameVariable: 'USER' )]){
-        sh 'docker build -t inshabano/demo-app:javamaven-2.0 .'
-        sh "echo $PSWD | docker login -u $USER --password-stdin"
-        sh 'docker push inshabano/demo-app:javamaven-2.0'
+    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER' )]){
+        sh "docker build -t inshabano/demo-app:${IMAGE_NAME} ."
+        sh "echo $PASS | docker login -u $USER --password-stdin"
+        sh "docker push inshabano/demo-app:${IMAGE_NAME}"
     }
 }
 def deploy() {
