@@ -34,7 +34,7 @@ pipeline{
            }
      }
      stage("build image"){
-     when{
+        when{
             expression {
               BRANCH_NAME == 'features'
             }
